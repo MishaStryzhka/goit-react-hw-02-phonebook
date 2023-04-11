@@ -11,9 +11,15 @@ class Phonebook extends Component {
         filter: ''
     }
 
-    onSubmit = (name) => {
-        const newUser = { id: nanoid(), ...name }
-        return this.setState((prefState) => ({ ...prefState, contacts: [...prefState.contacts, newUser] }))
+    onSubmit = (user) => {
+        if (this.state.contacts.find(contact => {
+            const normalizeUser = user.name.toLowerCase();
+            return contact.name.toLowerCase() === normalizeUser
+        })) { alert("Даний контакт вже є в телефонній") }
+        else {
+            const newUser = { id: nanoid(), ...user }
+            return this.setState((prefState) => ({ ...prefState, contacts: [...prefState.contacts, newUser] }))
+        }
     }
 
     handleChange = e => {
